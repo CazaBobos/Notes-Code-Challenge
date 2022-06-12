@@ -9,9 +9,12 @@ import {
 
 export default function NoteCard(props){
     const {
-        title = 'Default Title',
-        archived = false,
-        lastEdit = '00/00/0000'
+        title,
+        archived,
+        lastEdit,
+        onArchive,
+        onEdit,
+        onDelete
     } = props;
     return(
         <Card> 
@@ -25,13 +28,17 @@ export default function NoteCard(props){
                         </div>
                     </div>
                     <div className='d-flex align-items-end gap-2'>
-                        {(!archived) ? <FaArchive/> : <FaUpload/>}
-                        <FaPencilAlt/>
-                        <FaTrashAlt className='text-danger'/>
+                        {(!archived) ? 
+                            <FaArchive style={{cursor: "pointer"}}/> : 
+                            <FaUpload style={{cursor: "pointer"}}/>
+                        }
+                        <FaPencilAlt style={{cursor: "pointer"}}
+                            onClick={onEdit}/>
+                        <FaTrashAlt style={{cursor: "pointer"}} className='text-danger'
+                            onClick={onDelete}/>
                     </div>
                 </div>
             </Card.Body>
-
         </Card>
     );
 }

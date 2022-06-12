@@ -1,7 +1,7 @@
 export default function getCurrentDate(){
     let today = new Date();
 
-    let dayNumber = today.getDay();
+    let dayNumber = today.getDate();
     let day = (dayNumber <=9 ) ?
         `0${dayNumber}` : dayNumber;
     let month = 

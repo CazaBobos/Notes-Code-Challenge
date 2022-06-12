@@ -3,16 +3,21 @@ import { useRef } from "react";
 import { FaBan,FaSave } from 'react-icons/fa';
 import { useNotes } from "../context/NotesContext";
 import getCurrentDate from "../utils/dateFormatter";
+import { UNASSIGNED_ID } from "../context/NotesContext";
 
-export default function NoteModal({show, handleClose}){
+export default function NoteModal({show, noteId=UNASSIGNED_ID, handleClose}){
+    
     const titleRef = useRef();
     const contentRef = useRef();
     const categoriesRef = useRef([]);
-    const { addNote } = useNotes();
+    const { notes, saveNote} = useNotes();
+
+    const currentNote = notes.find(note => note.id === noteId);
 
     function handleSave(e){
         e.preventDefault();
-        addNote({
+        saveNote({
+            id: noteId,
             title: titleRef.current.value,
             content: contentRef.current.value,
             categories: categoriesRef.current.value,
@@ -33,11 +38,11 @@ export default function NoteModal({show, handleClose}){
                 <Modal.Body>
                     <Form.Group controlId='title' className='mb-3'>
                         <Form.Label>Title</Form.Label>
-                        <Form.Control ref={titleRef} type='text' required />
+                        <Form.Control ref={titleRef} type='text' defaultValue={currentNote?.title} required />
                     </Form.Group>
                     <Form.Group controlId='content' className='mb-3'>
                         <Form.Label>Content</Form.Label>
-                        <Form.Control ref={contentRef} as='textarea'/>
+                        <Form.Control ref={contentRef} as='textarea' defaultValue={currentNote?.content}/>
                     </Form.Group>
                     <Form.Group controlId='categories' className='mb-3'>
                         <Form.Label>Categories</Form.Label>

@@ -1,10 +1,10 @@
 # Ensolvers Coding Challenge
 
-A Notes CRUD Single Page Application.\
+A Notes CRUD Single Page Application.
 
 I chose to make this SPA with [Create React App](https://github.com/facebook/create-react-app).
 
-All the Notes are located in the browser's local storage with a unique Id that I generate with the [uuid](https://www.npmjs.com/package/uuid) library, and they get accessed via a custom hook I made for it.\
+All the Notes are located in the browser's local storage with a unique Id that I generate with the [uuid](https://www.npmjs.com/package/uuid) library, and they get accessed via a custom hook I made for it.
 
 I chose to use [react-boostrap](https://www.npmjs.com/package/react-bootstrap) components library to accelerate my development process and because it was suggested. Normally, I work with TailwindCSS, but it usually requires some extra configurations that I don't need for this project.\
 In Addition, i added [react-icons](https://www.npmjs.com/package/react-icons) to make the application a little more appealing to the eye.

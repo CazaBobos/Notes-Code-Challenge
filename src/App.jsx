@@ -7,15 +7,22 @@ import NoteModal from './components/NoteModal';
 import { useNotes } from './context/NotesContext';
 
 function App() {
-    const { notes } = useNotes();
+    const { notes, deleteNote } = useNotes();
     const [showNotesModal,setShowNotesModal] = useState(false);
+    const [notesModalId,setNotesModalId] = useState(null);
+    
+    function openNotesModal(id){
+        setNotesModalId(id);
+        setShowNotesModal(true);
+    }
+    
     return (
         <>
         <Container className='my-4'>
             <Stack direction='horizontal' gap='2' className='mb-4'>
                 <h1 className='me-auto'>My Notes</h1>
                 <Button variant='primary' className='d-flex align-items-center gap-2'
-                    onClick={()=>setShowNotesModal(true)}>
+                    onClick={()=>openNotesModal()}>
                     <FaPlus/>
                     <span>Create Note</span>
                 </Button>
@@ -28,11 +35,18 @@ function App() {
             }}
             >
             {notes.map(card =>
-                <NoteCard key={card.id} {...card}/>
+                <NoteCard 
+                    key={card.id} 
+                    title={card.title} 
+                    archived={card.archived} 
+                    lastEdit={card.lastEdit}
+                    onEdit={()=>openNotesModal(card.id)}
+                    onDelete={()=>deleteNote(card.id)}
+                />
             )}
             </div>
         </Container>
-        <NoteModal show={showNotesModal} handleClose={()=>setShowNotesModal(false)}/>
+        <NoteModal show={showNotesModal} noteId={notesModalId} handleClose={()=>setShowNotesModal(false)}/>
         </>
     );
 } 

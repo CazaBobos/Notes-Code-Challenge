@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { v4 as uniqueId } from "uuid";
 import useLocalStorage from "../hooks/useLocalStorage";
 
+export const UNASSIGNED_ID = 'UNASSIGNED_ID';
+
 const NotesContext = React.createContext();
 
 export function useNotes(){
@@ -9,6 +11,7 @@ export function useNotes(){
 }
 
 export const NotesProvider = ({children})=>{
+
     const [notes, setNotes] = useLocalStorage("notes",[]);
     const [categories, setCategories] = useLocalStorage("categories",[]);
     
@@ -21,24 +24,31 @@ export const NotesProvider = ({children})=>{
 
     function getNotes(){}
     
-    function addNote(newNote){
-        setNotes( previousNotes => 
-            [...previousNotes, {id: uniqueId(), ...newNote}]
-        );
+    function saveNote(newNote){
+        if(newNote.id === UNASSIGNED_ID){
+            newNote.id = uniqueId();
+            setNotes( previousNotes => 
+                [...previousNotes, {...newNote}]
+            );
+        } else 
+        setNotes( notes.map(note=>
+            note.id === newNote.id ? newNote : note
+        ));
     }
     function deleteNote({id}){
         setNotes(previousNotes =>
             previousNotes.filter(note => note.id !== id)    
         );
     }
-    function updateNote(){}
 
     return(
         <NotesContext.Provider value={{
+            UNASSIGNED_ID,
+            categories,
+            addCategory,
             notes,
             getNotes,
-            addNote,
-            updateNote,
+            saveNote,
             deleteNote
         }}>
             {children}
