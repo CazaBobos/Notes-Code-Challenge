@@ -5,7 +5,11 @@ import { useNotes } from "../context/NotesContext";
 import getCurrentDate from "../utils/dateFormatter";
 import { UNASSIGNED_ID } from "../context/NotesContext";
 
-export default function NoteModal({show, noteId=UNASSIGNED_ID, handleClose}){
+export default function NoteModal(props){
+    const {
+        show, handleClose, 
+        noteId=UNASSIGNED_ID
+    } = props;
     
     const titleRef = useRef();
     const contentRef = useRef();

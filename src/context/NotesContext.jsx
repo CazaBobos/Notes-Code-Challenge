@@ -35,7 +35,7 @@ export const NotesProvider = ({children})=>{
             note.id === newNote.id ? newNote : note
         ));
     }
-    function deleteNote({id}){
+    function deleteNote(id){
         setNotes(previousNotes =>
             previousNotes.filter(note => note.id !== id)    
         );
