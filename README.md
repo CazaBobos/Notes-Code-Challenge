@@ -11,9 +11,16 @@ In Addition, i added [react-icons](https://www.npmjs.com/package/react-icons) to
 
 Lastly, since this PWA has multiple views, I added [react-router-dom](https://www.npmjs.com/package/react-router-dom) to switch between views with a multiple page look & feel, while still being an SPA, so its advantages and behavior remain.
 
+You can use the following data (without the quotes) to access to the app:
+    USERNAME = "Default_Username"
+    PASSWORD = "Default_Password" 
+
 ## To run de app:
 First, to compile and run the application you need to download its dependencies using `npm i` or `npm install`
 After that, and as i'm using CRA, you can use it's default commands:
 
 - **`npm start`** to run the app in the development mode.
 - **`npm run build`** to build app for production in an optimized build folder.
+
+OR you can access its deployed production version at
+[Netlify](https://notes-challenge-app.netlify.app)

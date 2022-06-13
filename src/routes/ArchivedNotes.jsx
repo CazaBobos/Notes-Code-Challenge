@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container,Stack,Button } from 'react-bootstrap';
 
 import {FaArchive} from 'react-icons/fa';
@@ -7,11 +7,11 @@ import NoteCard from '../components/NoteCard';
 import NoteModal from '../components/NoteModal';
 import { useNotes } from '../context/NotesContext';
 import { useBrowser } from '../context/BrowserContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function ArchivedNotes(){
-
-    const { appRoutes } = useBrowser();
+    const navigate = useNavigate();
+    const { appRoutes, loggedIn } = useBrowser();
 
     const { 
         notes,
@@ -36,6 +36,12 @@ export default function ArchivedNotes(){
         note.archived = !note.archived;
         saveNote(note);
     }
+
+    useEffect(()=>{
+        if(!loggedIn){
+            navigate(appRoutes.login);
+        }
+    });
 
     return (
     <>

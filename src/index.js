@@ -7,7 +7,7 @@ import { appRoutes, BrowserProvider } from './context/BrowserContext';
 import Login from './routes/Login';
 import MyNotes from './routes/MyNotes';
 import ArchivedNotes from './routes/ArchivedNotes'
-const loggedIn = true;
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
@@ -20,18 +20,10 @@ root.render(
                             element={<Login/>}/>
                         <Route 
                             path={appRoutes.myNotes} 
-                            element={ loggedIn? 
-                                <MyNotes/>
-                                :
-                                <Login/>
-                            }/>
+                            element={<MyNotes/>}/>
                         <Route 
                             path={appRoutes.archivedNotes} 
-                            element={loggedIn? 
-                                <ArchivedNotes/>
-                                :
-                                <Login/>
-                            }/>
+                            element={<ArchivedNotes/>}/>
                     </Routes>
                 </BrowserRouter>
             </BrowserProvider>

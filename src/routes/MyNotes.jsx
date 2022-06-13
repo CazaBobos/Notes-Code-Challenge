@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container,Stack,Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import {FaPlus,FaArchive} from 'react-icons/fa';
@@ -7,10 +7,11 @@ import NoteCard from '../components/NoteCard';
 import NoteModal from '../components/NoteModal';
 import { useNotes } from '../context/NotesContext';
 import { useBrowser } from '../context/BrowserContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function MyNotes(){
-    const { appRoutes } = useBrowser();
+    const navigate = useNavigate();
+    const { appRoutes, loggedIn } = useBrowser();
 
     const { 
         notes,
@@ -39,6 +40,12 @@ export default function MyNotes(){
 
     const [selectedCategory, setSelectedCategory] = useState('default');
 
+    useEffect(()=>{
+        if(!loggedIn){
+            navigate(appRoutes.login);
+        }
+    });
+    
     return (
     <>
         <Container className='my-4'>
