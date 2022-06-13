@@ -12,18 +12,15 @@ export function useNotes(){
 
 export const NotesProvider = ({children})=>{
 
-    const [notes, setNotes] = useLocalStorage("notes",[]);
     const [categories, setCategories] = useLocalStorage("categories",[]);
-    
-    function addCategory({name}){
+    function saveCategory(name){
         setCategories(prevCategories =>
             (prevCategories.find(category => category.name === name))?
             prevCategories : [...prevCategories, {id: uniqueId(), name}]
         );
     }
 
-    function getNotes(){}
-    
+    const [notes, setNotes] = useLocalStorage("notes",[]);
     function saveNote(newNote){
         if(newNote.id === UNASSIGNED_ID){
             newNote.id = uniqueId();
@@ -45,9 +42,8 @@ export const NotesProvider = ({children})=>{
         <NotesContext.Provider value={{
             UNASSIGNED_ID,
             categories,
-            addCategory,
+            saveCategory,
             notes,
-            getNotes,
             saveNote,
             deleteNote
         }}>

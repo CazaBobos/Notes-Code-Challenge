@@ -9,6 +9,7 @@ All the Notes are located in the browser's local storage with a unique Id that I
 I chose to use [react-boostrap](https://www.npmjs.com/package/react-bootstrap) components library to accelerate my development process and because it was suggested. Normally, I work with TailwindCSS, but it usually requires some extra configurations that I don't need for this project.\
 In Addition, i added [react-icons](https://www.npmjs.com/package/react-icons) to make the application a little more appealing to the eye.
 
+Lastly, since this PWA has multiple views, I added [react-router-dom](https://www.npmjs.com/package/react-router-dom) to switch between views with a multiple page look & feel, while still being an SPA, so its advantages and behavior remain.
 
 ## To run de app:
 First, to compile and run the application you need to download its dependencies using `npm i` or `npm install`

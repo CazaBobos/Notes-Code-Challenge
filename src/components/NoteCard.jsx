@@ -29,8 +29,10 @@ export default function NoteCard(props){
                     </div>
                     <div className='d-flex align-items-end gap-2'>
                         {(!archived) ? 
-                            <FaArchive style={{cursor: "pointer"}}/> : 
-                            <FaUpload style={{cursor: "pointer"}}/>
+                            <FaArchive style={{cursor: "pointer"}}
+                                onClick={onArchive}/> : 
+                            <FaUpload style={{cursor: "pointer"}}
+                                onClick={onArchive}/>
                         }
                         <FaPencilAlt style={{cursor: "pointer"}}
                             onClick={onEdit}/>
