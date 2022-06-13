@@ -33,3 +33,4 @@ After that, and as i'm using CRA, you can use it's default commands:
 
 You can access this project's deployed production version at
 [Netlify](https://notes-challenge-app.netlify.app).
+Note that you will not be able to write URLs manually in production, as routing is handled client-side and being an SPA, it doens't have pages, but rather views.
