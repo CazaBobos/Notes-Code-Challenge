@@ -2,8 +2,10 @@ export default function getCurrentDate(){
     let today = new Date();
 
     let dayNumber = today.getDate();
+
     let day = (dayNumber <=9 ) ?
         `0${dayNumber}` : dayNumber;
+    
     let month = 
         (today.getMonth() === 0)? 'Jan':
         (today.getMonth() === 1)? 'Feb':
@@ -17,6 +19,7 @@ export default function getCurrentDate(){
         (today.getMonth() === 9)? 'Oct':
         (today.getMonth() === 10)? 'Nov':
         'Dec';
+        
     let year = today.getFullYear();
 
     return `${day}/${month}/${year}`;

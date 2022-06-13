@@ -13,7 +13,8 @@ Lastly, since this PWA has multiple views, I added [react-router-dom](https://ww
 
 I also added a login/logout feature to the project. 
 I would normally make validations on a server, but since this app is completely client-sided and because of how this feature is implemented, it's really easy to hack into de app.
-You can use the following data (without the quotes) to access to the app:
+
+You can use the following data (without the quotes, considering case sensitivity) to access to the app:
 
     USERNAME = "Default_Username"
     PASSWORD = "Default_Password" 

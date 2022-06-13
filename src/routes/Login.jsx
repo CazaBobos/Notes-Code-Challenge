@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Container,Card,Form,Button } from 'react-bootstrap';
 import { FaSignInAlt } from 'react-icons/fa';
 import { useBrowser } from '../context/BrowserContext';
@@ -16,14 +16,17 @@ export default function Login() {
 
     const userRef = useRef();
     const passRef = useRef();
+    const [errorMessage,setErrorMessage] = useState('');
 
     function handleLogin(){
         if(userRef.current.value === DEFAULT_USERNAME && passRef.current.value === DEFAULT_PASSWORD){
             setLoggedIn(true);
             navigate(appRoutes.myNotes)
         }
-        else 
+        else{
+            setErrorMessage('Wrong username or password');
             setLoggedIn(false);
+        }
     }
 
     return (
@@ -33,6 +36,9 @@ export default function Login() {
                 <h1 className='me-auto text-center text-primary'>Notes Challenge</h1>
             </Card.Header>
             <Card.Body>
+                <div className='d-flex flex-column align-items-center'>
+                    <span className='text-danger fw-bold'>{errorMessage}</span>
+                </div>
                 <Form.Group controlId='user' className='mb-3'>
                     <Form.Label>Username</Form.Label>
                     <Form.Control ref={userRef} type='text' required />
@@ -42,11 +48,11 @@ export default function Login() {
                     <Form.Control ref={passRef} type='password' required />
                 </Form.Group>
                 <div className='d-flex justify-content-center pt-3'>
-                <Button variant='primary' onClick={handleLogin}
-                    className='d-flex align-items-center gap-1'>
-                    <FaSignInAlt/>
-                    <b>Sign In</b>
-                </Button>
+                    <Button variant='primary' onClick={handleLogin}
+                        className='d-flex align-items-center gap-1'>
+                        <FaSignInAlt/>
+                        <b>Sign In</b>
+                    </Button>
                 </div>
             </Card.Body>
         </Card>
