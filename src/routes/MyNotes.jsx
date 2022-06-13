@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Container,Stack,Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
-import {FaPlus,FaArchive} from 'react-icons/fa';
+import {FaPlus,FaArchive,FaSignOutAlt} from 'react-icons/fa';
 import DeleteModal from '../components/DeleteModal';
 import NoteCard from '../components/NoteCard';
 import NoteModal from '../components/NoteModal';
@@ -11,7 +11,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function MyNotes(){
     const navigate = useNavigate();
-    const { appRoutes, loggedIn } = useBrowser();
+    const {
+        appRoutes,
+        loggedIn,
+        setLoggedIn
+    } = useBrowser();
 
     const { 
         notes,
@@ -49,19 +53,28 @@ export default function MyNotes(){
     return (
     <>
         <Container className='my-4'>
-            <Stack direction='horizontal' gap='3' className='mb-4'>
-                <h1 className='me-auto'>My Notes</h1>
-                <Button variant='primary' className='d-flex align-items-center gap-2'>
-                    <FaPlus/>
-                    <span>Create Note</span>
-                </Button>
-                <Button variant='outline-primary' className='d-flex align-items-center gap-2'
-                    onClick={()=>{/*TODO ADD HREF*/}}>
-                    <FaArchive/>
-                    <Link to={appRoutes.archivedNotes} className='text-decoration-none'>
-                        <span>Archived Notes</span>
-                    </Link>
-                </Button>
+            <Stack direction='horizontal' gap='3' className='d-flex justify-content-between mb-4'>
+                <div className='d-flex flex-column'>
+                    <h1 className='me-auto'>My Notes</h1>
+                    <Button variant='danger' className='d-flex align-items-center gap-2'
+                        onClick={()=>setLoggedIn(false)}>
+                        <FaSignOutAlt/>
+                        <span>Sign Out</span>
+                    </Button>
+                </div>
+                <div className='d-flex gap-3'>
+                    <Button variant='primary' className='d-flex align-items-center gap-2'
+                        onClick={()=>{openNotesModal()}}>
+                        <FaPlus/>
+                        <span>Create Note</span>
+                    </Button>
+                    <Button variant='outline-primary' className='d-flex align-items-center gap-2'>
+                        <FaArchive/>
+                        <Link to={appRoutes.archivedNotes} className='text-decoration-none'>
+                            <span>Archived Notes</span>
+                        </Link>
+                    </Button>
+                </div>
             </Stack>
 
             <Form.Select defaultValue='default' onChange={e=>setSelectedCategory(e.target.value)}>

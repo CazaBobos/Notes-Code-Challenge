@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Container,Stack,Button } from 'react-bootstrap';
-
-import {FaArchive} from 'react-icons/fa';
+import { FaArchive,FaSignOutAlt } from 'react-icons/fa';
 import DeleteModal from '../components/DeleteModal';
 import NoteCard from '../components/NoteCard';
 import NoteModal from '../components/NoteModal';
@@ -11,7 +10,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function ArchivedNotes(){
     const navigate = useNavigate();
-    const { appRoutes, loggedIn } = useBrowser();
+    const {
+        appRoutes,
+        loggedIn,
+        setLoggedIn
+    } = useBrowser();
 
     const { 
         notes,
@@ -46,14 +49,21 @@ export default function ArchivedNotes(){
     return (
     <>
         <Container className='my-4'>
-            <Stack direction='horizontal' gap='3' className='mb-4'>
+            <Stack direction='horizontal' gap='3' className='d-flex justify-content-between  mb-4'>
+            <div className='d-flex flex-column'>
                 <h1 className='me-auto'>My Notes</h1>
-                <Button variant='outline-primary' className='d-flex align-items-center gap-2'>
-                    <FaArchive/>
-                    <Link to={appRoutes.myNotes} className='text-decoration-none'>
-                        <span>&lt; Go back to unarchived notes</span>
-                    </Link>
+                <Button variant='danger' className='d-flex align-items-center gap-2'
+                    onClick={()=>setLoggedIn(false)}>
+                    <FaSignOutAlt/>
+                    <span>Sign Out</span>
                 </Button>
+            </div>
+            <Button variant='outline-primary' className='d-flex align-items-center gap-2'>
+                <FaArchive/>
+                <Link to={appRoutes.myNotes} className='text-decoration-none'>
+                    <span>&lt; Go back to unarchived notes</span>
+                </Link>
+            </Button>
             </Stack>
 
             <div style={{
