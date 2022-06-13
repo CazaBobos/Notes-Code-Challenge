@@ -1,5 +1,5 @@
 import { Modal,Form,Button, Card } from 'react-bootstrap';
-import { useRef, useEffect } from "react";
+import { useRef, useEffect,useState, useMemo } from "react";
 import { FaBan,FaSave,FaTag } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
 import { useNotes } from "../context/NotesContext";
@@ -21,17 +21,21 @@ export default function NoteModal(props){
     const contentRef = useRef();
     const addCategoryRef = useRef();
     
-    const currentNote = notes.find(note => note.id === noteId);
-    
-    const categoriesList = useRef( 
+    const currentNote = useMemo(()=>
+        notes.find(note => note.id === noteId)
+    ,[notes,noteId]); 
+
+    const [categoriesList,setCategoriesList] = useState( 
         currentNote === undefined ? [] :
-        currentNote.categories);
+        currentNote.categories
+    );
     
     useEffect(()=>{
-        categoriesList.current = 
+        setCategoriesList( 
             currentNote === undefined ? [] :
             currentNote.categories
-    },[currentNote])
+        );
+    },[currentNote]);
 
     function handleSave(e){
         e.preventDefault();
@@ -39,7 +43,7 @@ export default function NoteModal(props){
             id: noteId,
             title: titleRef.current.value,
             content: contentRef.current.value,
-            categories: categoriesList.current,
+            categories: categoriesList,
             archived: false,
             lastEdit: getCurrentDate()
         });
@@ -49,14 +53,15 @@ export default function NoteModal(props){
     function addCategory(){
         if(addCategoryRef.current.value){
             const newCategory = addCategoryRef.current.value;
+            setCategoriesList([...categoriesList,newCategory]);
             saveCategory(newCategory);
-            categoriesList.current.push(newCategory);
         }
     }
     
     function removeCategory(categoryName){
-        const index = categoriesList.current.indexOf(categoryName);
-        categoriesList.current.splice(index,1);
+        setCategoriesList(categoriesList
+            .filter(name => name !== categoryName)    
+        );
     }
 
     return(
@@ -80,7 +85,7 @@ export default function NoteModal(props){
                         <Form.Label>Categories</Form.Label>
                         <Card className='pt-2'>
                             <ul>
-                                {currentNote?.categories.map((category,i) =>
+                                {categoriesList.map((category,i) =>
                                     <li key={i} className='d-flex gap-2 align-items-center'>
                                         <FaTag/>
                                         <span>{category}</span>
