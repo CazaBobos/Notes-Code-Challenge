@@ -1,4 +1,4 @@
-# Ensolvers Coding Challenge
+# Notes Coding Challenge
 
 A Notes CRUD Single Page Application.
 
